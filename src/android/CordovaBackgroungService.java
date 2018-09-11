@@ -28,6 +28,22 @@ public class CordovaBackgroungService extends CordovaPlugin {
             this.runService(message, callbackContext);
             return true;
         }
+        if (action.equals("speakerOn")) {
+            this.speakerOn(args.getString(0), callbackContext);
+            return true;
+        }
+        if (action.equals("speakerOff")) {
+            this.speakerOff(args.getString(0), callbackContext);
+            return true;
+        }
+        if (action.equals("mute")) {
+            this.mute(args.getString(0), callbackContext);
+            return true;
+        }
+        if (action.equals("unmute")) {
+            this.unmute(args.getString(0), callbackContext);
+            return true;
+        }
         return false;
     }
 
@@ -42,5 +58,23 @@ public class CordovaBackgroungService extends CordovaPlugin {
             callbackContext.error("Expected one non-empty string argument.");
         }
     }
+    private void speakerOn() {
+        AudioManager audioManager = (AudioManager) this.cordova.getActivity().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setSpeakerphoneOn(true);
+    }
 
+    private void speakerOff() {
+        AudioManager audioManager = (AudioManager) this.cordova.getActivity().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setSpeakerphoneOn(false);
+    }
+
+    private void mute() {
+           AudioManager audioManager = (AudioManager) this.cordova.getActivity().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+           audioManager.setMicrophoneMute(true);
+    }
+
+    private void unmute() {
+        AudioManager audioManager = (AudioManager) this.cordova.getActivity().getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setMicrophoneMute(false);
+    }
 }
